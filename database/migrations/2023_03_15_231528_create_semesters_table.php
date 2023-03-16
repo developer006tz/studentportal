@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('semester_name', 255);
             $table->date('start_date');
             $table->date('end_date');
+            $table->$unsignedBigInteger('prog_id')->index();
+            $table->foreign('prog_id')->references('prog_id')->on('programs');
             $table->timestamps();
         });
     }
