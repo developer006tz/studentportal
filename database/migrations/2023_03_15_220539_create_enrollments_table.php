@@ -19,8 +19,10 @@ return new class extends Migration
             $table->foreign('student_id','student_id_fk')->references('student_id')->on('students');
             $table->unsignedBigInteger('course_id')->index();
             $table->foreign('course_id','course_id_fk')->references('course_id')->on('courses');
-            $table->unsignedBigInteger('semester');
-            $table->string('academic_year', 100);
+            $table->unsignedBigInteger('semester')->index();
+            $table->foreign('semester','semester_fk')->references('semester_id')->on('semesters');
+            $table->unsignedBigInteger('academic_year')->index();
+            $table->foreign('academic_year','academic_year_fk')->references('academic_year_id')->on('academic_years');
             $table->timestamps();
         });
     }

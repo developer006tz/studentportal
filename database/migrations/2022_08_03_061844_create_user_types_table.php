@@ -15,17 +15,17 @@ class CreateUserTypesTable extends Migration
     {
         Schema::create('user_types', function (Blueprint $table) {
             $table->id();
-            $table->string('type_name');
-            $table->string('type_description')->nullable();
+            $table->string('user_type_name');
+            $table->string('user_type_description')->nullable();
             $table->timestamps();
         });
 
         DB::table('user_types')->insert([
-            ['type_name' => 'student'],
-            ['type_name' => 'lecture'],
-            ['type_name' => 'staff'],
-            ['type_name' => 'department master'],
-            ['type_name' => 'administrator'],
+            ['user_type_name' => 'student'],
+            ['user_type_name' => 'lecture'],
+            ['user_type_name' => 'staff'],
+            ['user_type_name' => 'department master'],
+            ['user_type_name' => 'administrator'],
         ]);
     }
 

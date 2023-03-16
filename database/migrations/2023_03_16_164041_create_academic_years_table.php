@@ -13,15 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('semesters', function (Blueprint $table) {
-            $table->id('semester_id');
-            $table->string('semester_name', 255);
+        Schema::create('academic_years', function (Blueprint $table) {
+            $table->id('academic_year_id');
+            $table->string('name', 100);
             $table->date('start_date');
             $table->date('end_date');
-            $table->unsignedBigInteger('academic_year_id')->index();
-            $table->foreign('academic_year_id')->references('academic_year_id')->on('academic_years');
-            $table->unsignedBigInteger('program_id')->index();
-            $table->foreign('program_id')->references('program_id')->on('programs');
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('semesters');
+        Schema::dropIfExists('academic_years');
     }
 };
