@@ -19,13 +19,13 @@ class CreateUsersTable extends Migration
             $table->string('user_id');
             $table->string('email')->unique();
             $table->date('jod')->nullable();
-            $table->string('phone_number')->nullable()->unique();
+            $table->string('phone')->nullable()->unique();
             $table->enum('status', ['0', '1'])->default('1');
-            $table->string('role_name')->nullable();
             $table->string('avatar')->nullable();
             $table->unsignedBigInteger('user_type')->nullable()->index();
             $table->foreign('user_type')->references('id')->on('user_types');
-            $table->string('department')->nullable();
+            $table->string('department')->nullable()->index();
+            $table->foreign('department')->references('dept_id')->on('departments');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

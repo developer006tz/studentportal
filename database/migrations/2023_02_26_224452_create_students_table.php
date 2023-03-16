@@ -20,8 +20,8 @@ return new class extends Migration
             $table->date('dob')->nullable();
             $table->string('nationality')->default('Tanzanian');
             $table->string('maritual_status')->default('Single');
-            $table->unsignedBigInteger('prog_id')->index();
-            $table->foreign('prog_id')->references('prog_id')->on('programs');
+            $table->unsignedBigInteger('program_id')->index();
+            $table->foreign('program_id')->references('program_id')->on('programs');
             $table->string('year_of_study')->index();
             $table->string('admission_id')->nullable();
             $table->string('phone_number')->nullable()->unique();

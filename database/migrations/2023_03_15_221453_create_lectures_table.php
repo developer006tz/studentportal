@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id('lecture_id');
             $table->unsignedBigInteger('dept_id')->index();
             $table->foreign('dept_id','dept_id__fk')->references('dept_id')->on('departments');
-            $table->unsignedBigInteger('prog_id')->index();
-            $table->foreign('prog_id','prog_id__fk')->references('prog_id')->on('programs');
+            $table->unsignedBigInteger('program_id')->index();
+            $table->foreign('program_id','program_id__fk')->references('program_id')->on('programs');
             $table->string('full_name', 100);
             $table->string('email', 100)->nullable()->unique();
             $table->string('phone', 100)->nullable();

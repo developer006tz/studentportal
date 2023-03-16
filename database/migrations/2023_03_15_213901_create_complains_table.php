@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('complaints', function (Blueprint $table) {
             $table->id('complaint_id');
             $table->string('student_id');
-            $table->unsignedBigInteger('prog_id')->index();
-            $table->foreign('prog_id')->references('prog_id')->on('programs');
+            $table->unsignedBigInteger('program_id')->index();
+            $table->foreign('program_id')->references('program_id')->on('programs');
             $table->unsignedBigInteger('dept_id')->index();
             $table->foreign('dept_id')->references('dept_id')->on('departments');
             $table->unsignedBigInteger('lecture_id')->index();

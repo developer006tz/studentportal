@@ -17,10 +17,10 @@ class Student extends Model
         'dob',
         'nationality',
         'maritual_status',
-        'prog_id',
+        'program_id',
         'year_of_study',
         'admission_id',
-        'phone_number',
+        'phone',
         'email',
         'password',
         'default_Password',
@@ -29,7 +29,7 @@ class Student extends Model
     ];
     public function program()
     {
-        return $this->belongsTo(Program::class, 'prog_id');
+        return $this->belongsTo(Program::class, 'program_id');
     }
     public function department()
     {
