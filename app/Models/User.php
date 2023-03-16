@@ -19,17 +19,18 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'user_id',
         'email',
         'jod',
         'phone',
         'status',
-        'email',
-        'role_name',
         'avatar',
-        'position',
+        'user_type',
+        'avatar',
         'department',
+        'email_verified_at',
         'password',
+        'default_password',
+        'remember_token',
     ];
 
     /**
@@ -50,4 +51,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function usertype()
+    {
+        return $this->belongsTo(UserType::class, 'user_type', 'id');
+    }
+
+
 }

@@ -30,7 +30,8 @@ return new class extends Migration
             $table->string('default_password');
             $table->enum('status', ['0', '1'])->default('1');
             $table->string('photo')->nullable();
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

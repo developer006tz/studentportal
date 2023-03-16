@@ -40,10 +40,7 @@ Route::group(['middleware'=>'auth'],function()
     {
         return view('home');
     });
-    Route::get('home',function()
-    {
-        return view('home');
-    });
+    
 });
 
 Auth::routes();
@@ -64,7 +61,7 @@ Route::controller(RegisterController::class)->group(function () {
 
 // -------------------------- main dashboard ----------------------//
 Route::controller(HomeController::class)->group(function () {
-    Route::get('/home', 'index')->middleware('auth')->name('home');
+    Route::get('/dashboard', 'index')->middleware('auth')->name('home');
     Route::get('user/profile/page', 'userProfile')->middleware('auth')->name('user/profile/page');
     Route::get('teacher/dashboard', 'teacherDashboardIndex')->middleware('auth')->name('teacher/dashboard');
     Route::get('student/dashboard', 'studentDashboardIndex')->middleware('auth')->name('student/dashboard');

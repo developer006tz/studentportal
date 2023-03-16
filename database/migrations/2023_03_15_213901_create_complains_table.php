@@ -27,7 +27,8 @@ return new class extends Migration
             $table->text('description');
             $table->text('solution');
             $table->enum('status', ['0', '1', '2', '3']);
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

@@ -16,10 +16,15 @@
                         <span> Dashboard</span> 
                         <span class="menu-arrow"></span>
                     </a>
-                    <ul>
+                    <ul>@if (Session::get('user_type') === 'administrator' || Session::get('user_type') === 'Super Admin')
                         <li><a href="{{ route('home') }}" class="{{set_active(['home'])}}">Admin Dashboard</a></li>
+                        @endif
+                        @if (Session::get('user_type') === 'teacher')
                         <li><a href="{{ route('teacher/dashboard') }}" class="{{set_active(['teacher/dashboard'])}}">Teacher Dashboard</a></li>
+                        @endif
+                        @if (Session::get('user_type') === 'student')
                         <li><a href="{{ route('student/dashboard') }}" class="{{set_active(['student/dashboard'])}}">Student Dashboard</a></li>
+                        @endif
                     </ul>
                 </li>
                 @if (Session::get('role_name') === 'Admin' || Session::get('role_name') === 'Super Admin')

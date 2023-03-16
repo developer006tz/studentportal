@@ -17,7 +17,7 @@ class CreateGenerateIdTblsTable extends Migration
             CREATE TRIGGER id_store BEFORE INSERT ON users FOR EACH ROW
             BEGIN
                 INSERT INTO sequence_tbl VALUES (NULL);
-                SET NEW.user_id = CONCAT("0", LPAD(LAST_INSERT_ID(), 4, "0"));
+                SET NEW.id = CONCAT("0", LPAD(LAST_INSERT_ID(), 4, "0"));
             END
         ');
     }

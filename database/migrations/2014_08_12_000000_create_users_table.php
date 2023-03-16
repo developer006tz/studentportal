@@ -16,7 +16,6 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('user_id');
             $table->string('email')->unique();
             $table->date('jod')->nullable();
             $table->string('phone')->nullable()->unique();
@@ -28,8 +27,10 @@ class CreateUsersTable extends Migration
             $table->foreign('department')->references('dept_id')->on('departments');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('default_password')->nullable();
             $table->rememberToken();
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
     

@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('complain_types', function (Blueprint $table) {
             $table->id('complain_type_id');
             $table->string('complain_type_name', 255);
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

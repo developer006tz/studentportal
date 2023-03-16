@@ -27,6 +27,7 @@ class CreateUserTypesTable extends Migration
             ['user_type_name' => 'department master'],
             ['user_type_name' => 'administrator'],
         ]);
+        
     }
 
     /**
