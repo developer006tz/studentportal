@@ -14,20 +14,22 @@ return new class extends Migration
     public function up()
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->id();
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
+            $table->id('student_id');
+            $table->string('fullname');
             $table->string('gender')->nullable();
-            $table->string('date_of_birth')->nullable();
-            $table->string('roll')->nullable();
-            $table->string('blood_group')->nullable();
-            $table->string('religion')->nullable();
-            $table->string('email')->nullable();
-            $table->string('class')->nullable();
-            $table->string('section')->nullable();
+            $table->date('dob')->nullable();
+            $table->string('nationality')->default('Tanzanian');
+            $table->string('maritual_status')->default('Single');
+            $table->unsignedBigInteger('prog_id')->index();
+            $table->foreign('prog_id')->references('prog_id')->on('programs');
+            $table->string('year_of_study')->index();
             $table->string('admission_id')->nullable();
-            $table->string('phone_number')->nullable();
-            $table->string('upload')->nullable();
+            $table->string('phone_number')->nullable()->unique();
+            $table->string('email')->nullable()->unique();
+            $table->string('password');
+            $table->string('default_password');
+            $table->enum('status', ['0', '1'])->default('1');
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }
