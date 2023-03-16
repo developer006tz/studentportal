@@ -8,19 +8,38 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     use HasFactory;
+   protected $table = 'students';
+   protected $primaryKey = 'student_id';
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'student_id',
+        'fullname',
         'gender',
-        'date_of_birth',
-        'roll',
-        'blood_group',
-        'religion',
-        'email',
-        'class',
-        'section',
+        'dob',
+        'nationality',
+        'maritual_status',
+        'prog_id',
+        'year_of_study',
         'admission_id',
         'phone_number',
-        'upload',
+        'email',
+        'password',
+        'default_Password',
+        'status',
+        'photo',
     ];
+    public function program()
+    {
+        return $this->belongsTo(Program::class, 'prog_id');
+    }
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'dept_id');
+    }
+    public function course()
+    {
+        return $this->hasMany(Course::class, 'course_id');
+    }
+    
+
+
 }
