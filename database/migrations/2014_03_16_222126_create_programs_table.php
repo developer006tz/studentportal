@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('programme_pepartments', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('program_id')->index();
-            $table->foreign('program_id','program_id_fk')->references('program_id')->on('programs');
+        Schema::create('programs', function (Blueprint $table) {
+            $table->id('program_id');
+            $table->string('program_code', 100);
+            $table->string('program_name', 255);
+            $table->integer('capacity');
+            $table->unsignedBigInteger('nta_level')->index();
+            $table->foreign('nta_level','nta_level_fk')->references('id')->on('nta_levels');
             $table->unsignedBigInteger('dept_id')->index();
             $table->foreign('dept_id','dept_id_fk')->references('dept_id')->on('departments');
             $table->timestamps();
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('programme_pepartments');
+        Schema::dropIfExists('programs');
     }
 };

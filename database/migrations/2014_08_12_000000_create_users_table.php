@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->nullable();
             $table->unsignedBigInteger('user_type')->nullable()->index();
             $table->foreign('user_type')->references('id')->on('user_types');
-            $table->string('department')->nullable()->index();
+            $table->unsignedBigInteger('department')->nullable()->index();
             $table->foreign('department')->references('dept_id')->on('departments');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

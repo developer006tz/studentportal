@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('programs', function (Blueprint $table) {
-            $table->id('program_id');
-            $table->string('program_code', 100);
-            $table->string('program_name', 255);
-            $table->int('capacity');
-            $table->int('nta_level');
+        Schema::create('programme_departments', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('program_id')->index();
+            $table->foreign('program_id','program_id_fk')->references('program_id')->on('programs');
             $table->unsignedBigInteger('dept_id')->index();
-            $table->foreign('dept_id','dept_id_fk')->references('dept_id')->on('departments');
+            $table->foreign('dept_id','dept_id_fk__')->references('dept_id')->on('departments');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('programs');
+        Schema::dropIfExists('programme_departments');
     }
 };

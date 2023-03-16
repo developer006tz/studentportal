@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id('role_id');
             $table->string('role_name', 255);
             $table->string('role_description', 255);
-            $table->unsignedBigInteger('user_type', 255)->index();
+            $table->unsignedBigInteger('user_type')->index();
             $table->foreign('user_type','user_type_fk')->references('id')->on('user_types');
             $table->timestamps();
         });

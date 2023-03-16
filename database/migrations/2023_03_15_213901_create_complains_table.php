@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('lecture_id')->index();
             $table->foreign('lecture_id')->references('lecture_id')->on('lectures');
             $table->unsignedBigInteger('complain_type_id')->index();
-            $table->foreign('complain_type_id')->references('complain_type_id')->on('complaint_types');
+            $table->foreign('complain_type_id')->references('complain_type_id')->on('complain_types');
             $table->text('description');
             $table->text('solution');
             $table->enum('status', ['0', '1', '2', '3']);
