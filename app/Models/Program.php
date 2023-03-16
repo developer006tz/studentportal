@@ -8,4 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Program extends Model
 {
     use HasFactory;
+    protected $table = 'programs';
+    
+    protected $primaryKey = 'program_id';
+    
+    protected $fillable = [
+        'program_code',
+        'program_name',
+        'capacity',
+        'nta_level',
+        'dept_id',
+    ];
+    
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'dept_id');
+    }
+    
 }
