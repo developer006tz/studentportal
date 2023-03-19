@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('fullname');
             $table->string('gender')->nullable();
             $table->date('dob')->nullable();
-            $table->string('nationality')->index();
-            $table->foreign('nationality')->references('name')->on('countries');
+            $table->unsignedBigInteger('nationality_id')->index();
+            $table->foreign('nationality_id')->references('id')->on('countries');
             $table->string('maritual_status')->default('Single');
             $table->unsignedBigInteger(column:'program_id')->index();
             $table->foreign('program_id')->references('program_id')->on('programs');
