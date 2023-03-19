@@ -14,6 +14,7 @@ class Program extends Model
     
     protected $fillable = [
         'program_code',
+        
         'program_name',
         'capacity',
         'nta_level_id',
