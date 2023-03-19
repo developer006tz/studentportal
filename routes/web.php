@@ -10,6 +10,7 @@ use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\TypeFormController;
 use App\Http\Controllers\Setting;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\Student\CompleteProfile;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,7 +65,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/dashboard', 'index')->middleware('auth')->name('home');
     Route::get('user/profile/page', 'userProfile')->middleware('auth')->name('user/profile/page');
     Route::get('teacher/dashboard', 'teacherDashboardIndex')->middleware('auth')->name('teacher/dashboard');
-    Route::get('student/dashboard', 'studentDashboardIndex')->middleware('auth')->name('student/dashboard');
+    Route::get('/student', 'studentDashboardIndex')->middleware('auth')->name('student/dashboard');
 });
 
 // ----------------------------- user controller -------------------------//
@@ -83,7 +84,7 @@ Route::controller(Setting::class)->group(function () {
     Route::get('setting/page', 'index')->middleware('auth')->name('setting/page');
 });
 
-// ------------------------ student -------------------------------//
+// ------------------------ admin student -------------------------------//
 Route::controller(StudentController::class)->group(function () {
     Route::get('student/list', 'student')->middleware('auth')->name('student/list'); // list student
     Route::get('student/grid', 'studentGrid')->middleware('auth')->name('student/grid'); // grid student
@@ -94,5 +95,15 @@ Route::controller(StudentController::class)->group(function () {
     Route::post('student/delete', 'studentDelete')->name('student/delete'); // delete record student
     Route::get('student/profile/{id}', 'studentProfile')->middleware('auth'); // profile student
 
+});
+
+// ------------------------ user student -------------------------------//
+Route::controller(CompleteProfile::class)->group(function () {
+    Route::get('student/complete/profile', 'index')->middleware('auth')->name('profile'); // complete profile student
+    Route::post('student/save', 'store')->middleware('auth')->name('student/save'); // save complete profile student
+    Route::get('program/search', 'getPrograms')->middleware('auth')->name('program/search'); // edit complete profile student
+    Route::post('student/complete/profile/update', 'completeProfileUpdate')->name('student/complete/profile/update'); // update complete profile student
+    Route::get('student/complete/profile/view', 'completeProfileView')->middleware('auth')->name('student/complete/profile/view'); // view complete profile student
+    Route::get('student/complete/profile/delete', 'completeProfileDelete')->middleware('auth')->name('student/complete/profile/delete'); // delete complete profile student
 });
 

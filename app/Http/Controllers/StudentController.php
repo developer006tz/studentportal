@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use DB;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -32,52 +33,62 @@ class StudentController extends Controller
     /** student save record */
     public function studentSave(Request $request)
     {
+        
+        
         $request->validate([
-            'first_name'    => 'required|string',
-            'last_name'     => 'required|string',
-            'gender'        => 'required|not_in:0',
-            'date_of_birth' => 'required|string',
-            'roll'          => 'required|string',
-            'blood_group'   => 'required|string',
-            'religion'      => 'required|string',
-            'email'         => 'required|email',
-            'class'         => 'required|string',
-            'section'       => 'required|string',
-            'admission_id'  => 'required|string',
-            'phone_number'  => 'required',
-            'upload'        => 'required|image',
+            'fullname'     => 'required|string',
+            'admission_id'        => 'required|string',
+            'gender' => 'required|string',
+            'dob'        => 'required|string',
+            'nationality'      => 'required|string',
+            'maritual_status'         => 'required|string',
+            // 'department'         => 'required|numeric',
+            'program_id'       => 'required|numeric',
+            'email' => 'required|string|email|max:255|unique:users,email,'.auth()->user()->id,
+            'phone'  => 'required|string|max:255|unique:users',
+            'photo'         => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+       
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+            
+            $extension = $file->getClientOriginalExtension();
+            
+            $filename = time().rand(4,999) . '.' . $extension;
+            
+            $file->move('uploads/student/', $filename);
+        } else {
+            dd('no file');
+            $filename = 'default.png';
+        }
         
         DB::beginTransaction();
         try {
-           
-            $upload_file = rand() . '.' . $request->upload->extension();
-            $request->upload->move(storage_path('app/public/student-photos/'), $upload_file);
-
+            $dateString = $request->dob;
+            $date = Carbon::createFromFormat('d-m-Y', $dateString);
+            $formattedDate = $date->format('Y-m-d');
             $student = new Student;
-            $student->first_name   = $request->first_name;
-            $student->last_name    = $request->last_name;
+            $student->user_id = auth()->user()->id;
+            $student->fullname   = $request->fullname;
             $student->gender       = $request->gender;
-            $student->date_of_birth= $request->date_of_birth;
-            $student->roll         = $request->roll;
-            $student->blood_group  = $request->blood_group;
-            $student->religion     = $request->religion;
-            $student->email        = $request->email;
-            $student->class        = $request->class;
-            $student->section      = $request->section;
-            $student->admission_id = $request->admission_id;
-            $student->phone_number = $request->phone_number;
-            $student->upload = $upload_file;
-            $student->save();
-
-            Toastr::success('Has been add successfully :)','Success');
+            $student->dob          = $formattedDate;
+            $student->nationality  = $request->nationality;
+            $student->maritual_status     = $request->maritual_status;
+            $student->program_id        = $request->program_id;
+            $student->admission_id        = $request->admission_id;
+            $student->phone      = $request->phone;
+            $student->email = $request->email;
+            $student->photo = $filename;
+            
+            $save = $student->save();
             DB::commit();
-            return redirect()->back();
+            return $save;
            
         } catch(\Exception $e) {
+
+            $error = ($e->getMessage());
             DB::rollback();
-            Toastr::error('fail, Add new student  :)','Error');
-            return redirect()->back();
+            return $error;
         }
     }
 

@@ -26,7 +26,7 @@ class Complain extends Model
         return $this->belongsTo(Program::class);
     }
 
-    public function department()
+    public function complaint_department()
     {
         return $this->belongsTo(Department::class);
     }

@@ -28,7 +28,7 @@ class Lecture extends Model
         'default_password',
     ];
 
-    public function department()
+    public function department_lecture()
     {
         return $this->belongsTo(Department::class, 'dept_id', 'dept_id');
     }

@@ -64,16 +64,18 @@ class LoginController extends Controller
             'email'    => 'required|string',
             'password' => 'required|string',
         ]);
-        
+
+        $remember = $request->has('remember') ? true : false;
         DB::beginTransaction();
         try {
             
             $email     = $request->email;
             $password  = $request->password;
 
-            if (Auth::attempt(['email'=>$email,'password'=>$password])) {
+            if (Auth::attempt(['email'=>$email,'password'=>$password], $remember)) {
                 /** get session */
                 $user = Auth::User();
+                   
                 Session::put('name', $user->name);
                 Session::put('email', $user->email);
                 Session::put('jod', $user->jod);
@@ -83,7 +85,22 @@ class LoginController extends Controller
                 Session::put('avatar', $user->avatar);
                 Session::put('department', $user->department);
                 Toastr::success('Login successfully :)','Success');
-                return redirect()->intended('/dashboard');
+                if($user->usertype->user_type_name == 'student'){
+                  return redirect()->intended('student');  
+                }
+                if ($user->usertype->user_type_name == 'teacher') {
+                    return redirect()->intended('teacher/dashboard');
+                }
+                if ($user->usertype->user_type_name == 'staff') {
+                    return redirect()->intended('user/dashboard');
+                }
+                if ($user->usertype->user_type_name == 'department master') {
+                    return redirect()->intended('teacher/dashboard');
+                }
+                if ($user->usertype->user_type_name == 'administrator') {
+                    return redirect()->intended('dashboard');
+                }
+                
             } else {
                 Toastr::error('fail, WRONG USERNAME OR PASSWORD :)','Error');
                 return redirect('login');

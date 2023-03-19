@@ -2,15 +2,8 @@
     <div class="sidebar-inner slimscroll">
         <div id="sidebar-menu" class="sidebar-menu">
             <ul>
-                <li class="menu-title">
-                    <span>Main Menu</span>
-                </li>
-                <li class="{{set_active(['setting/page'])}}">
-                    <a href="{{ route('setting/page') }}">
-                        <i class="fas fa-cog"></i> 
-                        <span>Settings</span>
-                    </a>
-                </li>
+
+                
                 <li class="submenu {{set_active(['home','teacher/dashboard','student/dashboard'])}}">
                     <a href="#"><i class="feather-grid"></i>
                         <span> Dashboard</span> 
@@ -28,6 +21,12 @@
                     </ul>
                 </li>
                 @if (Session::get('role_name') === 'Admin' || Session::get('role_name') === 'Super Admin')
+                <li class="{{set_active(['setting/page'])}}">
+                    <a href="{{ route('setting/page') }}">
+                        <i class="fas fa-cog"></i> 
+                        <span>Settings</span>
+                    </a>
+                </li>
                 <li class="submenu {{set_active(['list/users'])}} {{ (request()->is('view/user/edit/*')) ? 'active' : '' }}">
                     <a href="#"><i class="fas fa-shield-alt"></i>
                         <span>User Management</span> 
@@ -37,7 +36,7 @@
                         <li><a href="{{ route('list/users') }}" class="{{set_active(['list/users'])}} {{ (request()->is('view/user/edit/*')) ? 'active' : '' }}">List Users</a></li>
                     </ul>
                 </li>
-                @endif
+              
 
                 <li class="submenu {{set_active(['student/list','student/grid','student/add/page'])}} {{ (request()->is('student/edit/*')) ? 'active' : '' }} {{ (request()->is('student/profile/*')) ? 'active' : '' }}">
                     <a href="#"><i class="fas fa-graduation-cap"></i>
@@ -85,6 +84,7 @@
                         <li><a href="edit-subject.html">Subject Edit</a></li>
                     </ul>
                 </li>
+                
                 <li class="submenu">
                     <a href="#"><i class="fas fa-clipboard"></i>
                         <span> Invoices</span>
@@ -99,6 +99,7 @@
                         <li><a href="invoices-settings.html">Invoices Settings</a></li>
                     </ul>
                 </li>
+                
                 <li class="menu-title">
                     <span>Management</span>
                 </li>
@@ -134,6 +135,17 @@
                 <li>
                     <a href="library.html"><i class="fas fa-book"></i> <span>Library</span></a>
                 </li>
+
+                @endif
+
+                @if(Auth::user()->usertype->user_type_name == 'student')
+                <li class="{{set_active(['profile'])}}">
+                    <a href="{{ route('profile') }}">
+                        <i class="fas fa-cog"></i> 
+                        <span>Profile</span>
+                    </a>
+                </li>
+                @endif
             </ul>
         </div>
     </div>

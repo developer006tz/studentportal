@@ -12,18 +12,16 @@ class Student extends Model
    protected $primaryKey = 'student_id';
     protected $fillable = [
         'student_id',
+        'user_id',
         'fullname',
         'gender',
         'dob',
         'nationality',
         'maritual_status',
         'program_id',
-        'year_of_study',
         'admission_id',
         'phone',
         'email',
-        'password',
-        'default_Password',
         'status',
         'photo',
     ];
@@ -38,6 +36,10 @@ class Student extends Model
     public function course()
     {
         return $this->hasMany(Course::class, 'course_id');
+    }
+
+    public function countrie(){
+        return $this->belongsTo(Countries::class,'id');
     }
     
 

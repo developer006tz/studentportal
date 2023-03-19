@@ -16,7 +16,7 @@ class Program extends Model
         'program_code',
         'program_name',
         'capacity',
-        'nta_level',
+        'nta_level_id',
         'dept_id',
     ];
     

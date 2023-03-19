@@ -9,11 +9,25 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="page-sub-header">
-                            <h3 class="page-title">Welcome Bruklin!</h3>
+                            <h3 class="page-title">Welcome {{ Session::get('name') }}</h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                                 <li class="breadcrumb-item active">Student</li>
                             </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-status">
+                <div class="row my-3">
+                    <div class="col-sm-12">
+                        <div class="profile-title">
+                            <h6 class="h6">Profile status</h6>
+                            <div class="h6 mx-3">( please complete profile to start send compalints )</div>
+                            
+                        </div>
+                        <div class="progress">
+                        <div class="progress-bar bg-danger" role="progressbar" aria-label="Example with label" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
                         </div>
                     </div>
                 </div>
