@@ -373,7 +373,7 @@
                                                             <select class="programs-select select form-control @error('nationality') is-invalid @enderror" name="nationality" id="nationality" style="width: 100%;" >
                                                                 <option selected >{{__('select country')}}</option>
                                                                     @foreach ($countries as $country)
-                                                                        <option value="{{ $country->name }}" {{ old( $country->name) == $country->name ? 'selected' : '' }}>
+                                                                        <option value="{{ $country->id }}" {{ old( $country->id) == $country->id ? 'selected' : '' }}>
                                                                         {{ $country->name }}
                                                                     </option>
                                                                     @endforeach
