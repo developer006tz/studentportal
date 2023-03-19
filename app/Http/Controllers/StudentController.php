@@ -58,7 +58,6 @@ class StudentController extends Controller
             
             $file->move('uploads/student/', $filename);
         } else {
-            dd('no file');
             $filename = 'default.png';
         }
         
@@ -72,7 +71,7 @@ class StudentController extends Controller
             $student->fullname   = $request->fullname;
             $student->gender       = $request->gender;
             $student->dob          = $formattedDate;
-            $student->nationality  = $request->nationality;
+            $student->nationality_id  = $request->nationality;
             $student->maritual_status     = $request->maritual_status;
             $student->program_id        = $request->program_id;
             $student->admission_id        = $request->admission_id;
