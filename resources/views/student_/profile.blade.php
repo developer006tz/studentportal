@@ -135,6 +135,11 @@
                     </div>
                 </div>
             </div>
+            @if(isset($student) && !empty($student->photo))
+            {{$photo = $student->photo;}}
+            @else
+           {{ $photo = 'default.png';}}
+            @endif
 
             <div class="row">
                 <div class="col-md-12">
@@ -143,7 +148,7 @@
                             <div class="col-auto profile-image">
                                 <a href="#">
                                     <img class="rounded-circle" alt="{{ Session::get('name') }}"
-                                        src="{{ asset('uploads/student/'.$student->photo ?? null) }}" alt="Student photo">
+                                        src="{{ asset('uploads/student/'.$photo) }}" alt="Student photo">
                                 </a>
                             </div>
                             <div class="col ms-md-n2 profile-user-info">
