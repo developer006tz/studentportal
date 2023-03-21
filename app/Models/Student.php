@@ -29,7 +29,7 @@ class Student extends Model
     {
         return $this->belongsTo(Program::class, 'program_id');
     }
-    public function department()
+    public function departmentz()
     {
         return $this->belongsTo(Department::class, 'dept_id');
     }
@@ -39,7 +39,7 @@ class Student extends Model
     }
 
     public function countrie(){
-        return $this->belongsTo(Countries::class,'id');
+        return $this->belongsTo(Countries::class);
     }
     
 

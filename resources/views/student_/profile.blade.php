@@ -143,14 +143,14 @@
                             <div class="col-auto profile-image">
                                 <a href="#">
                                     <img class="rounded-circle" alt="{{ Session::get('name') }}"
-                                        src="/images/{{ Session::get('avatar') }}">
+                                        src="{{ asset('uploads/student/'.$student->photo) }}" alt="Student photo">
                                 </a>
                             </div>
                             <div class="col ms-md-n2 profile-user-info">
                                 <h4 class="user-name mb-0">{{ Session::get('name') }}</h4>
-                                <h6 class="text-muted">{{ Session::get('position') }}</h6>
-                                <div class="user-Location"><i class="fas fa-map-marker-alt"></i> Combodai Phnom Penh</div>
-                                <div class="about-text">Lorem ipsum dolor sit amet.</div>
+                                <h6 class="text-muted"><span class="p-1"><i class="fa fa-user-md mr-2" data-bs-toggle="tooltip" title="" data-bs-original-title="fa fa-user-md" aria-label="fa fa-user-md"></i></span>{{ $user->usertype->user_type_name }}</h6>
+                                <div class="user-Location"> <span class="p-1"><i class="ion-map " data-bs-toggle="tooltip" title="" data-bs-original-title="ion-map" aria-label="ion-map"></i></span>{{$student->program->program_name}}</div>
+                                <div class="about-text"><span class="p-1"><i class="fa fa-th-list" data-bs-toggle="tooltip" title="" data-bs-original-title="fa fa-th-list" aria-label="fa fa-th-list"></i></span>{{$student->program->department->dept_name}}</div>
                             </div>
                             <div class="col-auto profile-btn">
                                 <a href="" class="btn btn-primary">Edit</a>
@@ -165,9 +165,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="tab" href="#password_tab">Password</a>
                             </li>
+                            @if(empty($student->admission_id))
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="tab" href="#student_update">student informations</a>
                             </li>
+                            @endif
                         </ul>
                     </div>
                     <div class="tab-content profile-tab-cont">
@@ -183,31 +185,42 @@
                                                         class="far fa-edit me-1"></i>Edit</a>
                                             </h5>
                                             <div class="row">
-                                                <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Name</p>
-                                                <p class="col-sm-9">{{ Session::get('name') }}</p>
+                                                <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Name :</p>
+                                                <p class="col-sm-9">{{ $student->fullname}}</p>
                                             </div>
                                             <div class="row">
-                                                <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Date of Birth</p>
-                                                <p class="col-sm-9">24 Jul 1983</p>
+                                                <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Registration Number :</p>
+                                                <p class="col-sm-9">{{ $student->admission_id}}</p>
                                             </div>
                                             <div class="row">
-                                                <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Email</p>
+                                                <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Date of Birth :</p>
+                                                <p class="col-sm-9">{{ $student->dob}}</p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Email :</p>
                                                 <p class="col-sm-9"><a href="/cdn-cgi/l/email-protection"
                                                         class="__cf_email__"
                                                         data-cfemail="a1cbcec9cfc5cec4e1c4d9c0ccd1cdc48fc2cecc">{{ Session::get('email') }}</a>
                                                 </p>
                                             </div>
                                             <div class="row">
-                                                <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Mobile</p>
-                                                <p class="col-sm-9">{{ Session::get('phone_number') }}</p>
+                                                <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Mobile :</p>
+                                                <p class="col-sm-9">{{ $student->phone }}</p>
                                             </div>
                                             <div class="row">
-                                                <p class="col-sm-3 text-muted text-sm-end mb-0">Address</p>
-                                                <p class="col-sm-9 mb-0">4663 Agriculture Lane,<br>
-                                                    Miami,<br>
-                                                    Florida - 33165,<br>
-                                                    United States.</p>
+                                                <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Department :</p>
+                                                <p class="col-sm-9">{{ $student->program->department->dept_name }}</p>
                                             </div>
+                                            <div class="row">
+                                                <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Programme :</p>
+                                                <p class="col-sm-9">{{ $student->program->program_name }}</p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="col-sm-3 text-muted text-sm-end mb-0">Nationality :</p>
+                                                <p class="col-sm-9 mb-0">@if(($country->iso)=='TZ')<span class="p-1"><i class="flag flag-tz" data-bs-toggle="tooltip" title="" data-bs-original-title="flag flag-tz" aria-label="flag flag-tz"></i></span>@endif{{$country->name}}</p>
+                                            </div>
+                                            
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -219,8 +232,9 @@
                                                 <span>Account Status</span>
                                                 <a class="edit-link" href="#"><i class="far fa-edit me-1"></i>Edit</a>
                                             </h5>
-                                            <button class="btn btn-success" type="button"><i
-                                                    class="fe fe-check-verified"></i> Active</button>
+                                            
+                                            <button class="btn {{$student->status==1 ? 'btn-success':'btn-danger'}}" type="button"><i
+                                                    class="fe fe-check-verified"></i> {{$student->status == 1 ? 'Active': 'Disabled'}}</button>
                                         </div>
                                     </div>
 

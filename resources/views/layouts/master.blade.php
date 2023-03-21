@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="{{ URL::to('assets/plugins/datatables/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ URL::to('assets/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ URL::to('assets/css/style.css') }}">
+
+
+<link rel="stylesheet" href="{{ URL::to('assets/plugins/icons/ionic/ionicons.css')}}">
     {{-- custom css --}}
     <link rel="stylesheet" href="{{ URL::to('assets/css/custom.css') }}">
 	{{-- message toastr --}}

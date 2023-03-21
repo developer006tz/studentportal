@@ -17,5 +17,7 @@ class Countries extends Model
         'iso3',
     ];
 
+    
+
 
 }

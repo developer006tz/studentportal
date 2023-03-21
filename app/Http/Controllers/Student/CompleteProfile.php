@@ -28,16 +28,20 @@ class CompleteProfile extends Controller
     
     public function index(){
         $id = auth()->user()->id;
-        $user = User::where('id',$id)->first();
-        $name = $user->name;
-        $email = $user->email;
-        $departments = DB::table('departments')->get();
-        $programs  = Program::where('dept_id',$user->department)->get();
-        $countries = Countries::all();
+        $this->data['user'] = $user = User::where('id',$id)->first();
+        $this->data['name'] = $name = $user->name;
+        $this->data['email'] = $email = $user->email;
+        $this->data['departments'] = $departments = DB::table('departments')->get();
+        $this->data['programs'] = $programs  = Program::where('dept_id',$user->department)->get();
+        $this->data['countries'] = $countries = Countries::all();
+        $this->data['student'] = $student = Student::where('user_id',$id)->first();
         
         
-        
-        return view('student_.profile',compact('user','departments','name','email','programs','countries'));
+        $this->data['country'] = $countries->where('id',$student->nationality_id)->first();
+        // dd($this->data['country']->iso);
+       
+       
+        return view('student_.profile',$this->data);
     }
 
     public function getPrograms(Request $request){
