@@ -36,8 +36,8 @@ class CompleteProfile extends Controller
         $this->data['countries'] = $countries = Countries::all();
         $this->data['student'] = $student = Student::where('user_id',$id)->first();
         
-        
-        $this->data['country'] = $countries->where('id',$student->nationality_id)->first();
+        $country_id = $student->nationality_id ?? null;
+        $this->data['country'] = $countries->where('id',$country_id)->first();
         // dd($this->data['country']->iso);
        
        
