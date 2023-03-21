@@ -143,7 +143,7 @@
                             <div class="col-auto profile-image">
                                 <a href="#">
                                     <img class="rounded-circle" alt="{{ Session::get('name') }}"
-                                        src="{{ asset('uploads/student/'.$student->photo) }}" alt="Student photo">
+                                        src="{{ asset('uploads/student/'.$student->photo ?? null) }}" alt="Student photo">
                                 </a>
                             </div>
                             <div class="col ms-md-n2 profile-user-info">
@@ -186,15 +186,15 @@
                                             </h5>
                                             <div class="row">
                                                 <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Name :</p>
-                                                <p class="col-sm-9">{{ $student->fullname}}</p>
+                                                <p class="col-sm-9">{{ $student->fullname ?? null}}</p>
                                             </div>
                                             <div class="row">
                                                 <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Registration Number :</p>
-                                                <p class="col-sm-9">{{ $student->admission_id}}</p>
+                                                <p class="col-sm-9">{{ $student->admission_id ?? null}}</p>
                                             </div>
                                             <div class="row">
                                                 <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Date of Birth :</p>
-                                                <p class="col-sm-9">{{ $student->dob}}</p>
+                                                <p class="col-sm-9">{{ $student->dob ?? null}}</p>
                                             </div>
                                             <div class="row">
                                                 <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Email :</p>
@@ -205,19 +205,19 @@
                                             </div>
                                             <div class="row">
                                                 <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Mobile :</p>
-                                                <p class="col-sm-9">{{ $student->phone }}</p>
+                                                <p class="col-sm-9">{{ $student->phone ?? null }}</p>
                                             </div>
                                             <div class="row">
                                                 <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Department :</p>
-                                                <p class="col-sm-9">{{ $student->program->department->dept_name }}</p>
+                                                <p class="col-sm-9">{{ $student->program->department->dept_name ?? null }}</p>
                                             </div>
                                             <div class="row">
                                                 <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Programme :</p>
-                                                <p class="col-sm-9">{{ $student->program->program_name }}</p>
+                                                <p class="col-sm-9">{{ $student->program->program_name ?? null }}</p>
                                             </div>
                                             <div class="row">
                                                 <p class="col-sm-3 text-muted text-sm-end mb-0">Nationality :</p>
-                                                <p class="col-sm-9 mb-0">@if(($country->iso)=='TZ')<span class="p-1"><i class="flag flag-tz" data-bs-toggle="tooltip" title="" data-bs-original-title="flag flag-tz" aria-label="flag flag-tz"></i></span>@endif{{$country->name}}</p>
+                                                <p class="col-sm-9 mb-0">@if(($country->iso)=='TZ')<span class="p-1"><i class="flag flag-tz" data-bs-toggle="tooltip" title="" data-bs-original-title="flag flag-tz" aria-label="flag flag-tz"></i></span>@endif{{$country->name ?? null}}</p>
                                             </div>
                                             
                                             
@@ -233,8 +233,8 @@
                                                 <a class="edit-link" href="#"><i class="far fa-edit me-1"></i>Edit</a>
                                             </h5>
                                             
-                                            <button class="btn {{$student->status==1 ? 'btn-success':'btn-danger'}}" type="button"><i
-                                                    class="fe fe-check-verified"></i> {{$student->status == 1 ? 'Active': 'Disabled'}}</button>
+                                            <button class="btn {{$student->status ?? null==1 ? 'btn-success':'btn-danger'}}" type="button"><i
+                                                    class="fe fe-check-verified"></i> {{$student->status ?? null == 1 ? 'Active': 'Disabled'}}</button>
                                         </div>
                                     </div>
 
