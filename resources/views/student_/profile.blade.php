@@ -135,27 +135,25 @@
                     </div>
                 </div>
             </div>
-            @if(isset($student) && !empty($student->photo))
-            {{$photo = $student->photo;}}
-            @else
-           {{ $photo = 'default.png';}}
-            @endif
+            
+            
 
             <div class="row">
                 <div class="col-md-12">
+                    @if(isset($student) && !empty($student))
                     <div class="profile-header">
                         <div class="row align-items-center">
                             <div class="col-auto profile-image">
                                 <a href="#">
                                     <img class="rounded-circle" alt="{{ Session::get('name') }}"
-                                        src="{{ asset('uploads/student/'.$photo) }}" alt="Student photo">
+                                        src="{{ asset('uploads/student/'.$student->photo) }}" alt="Student photo">
                                 </a>
                             </div>
                             <div class="col ms-md-n2 profile-user-info">
                                 <h4 class="user-name mb-0">{{ Session::get('name') }}</h4>
                                 <h6 class="text-muted"><span class="p-1"><i class="fa fa-user-md mr-2" data-bs-toggle="tooltip" title="" data-bs-original-title="fa fa-user-md" aria-label="fa fa-user-md"></i></span>{{ $user->usertype->user_type_name }}</h6>
-                                <div class="user-Location"> <span class="p-1"><i class="ion-map " data-bs-toggle="tooltip" title="" data-bs-original-title="ion-map" aria-label="ion-map"></i></span>{{$student->program->program_name}}</div>
-                                <div class="about-text"><span class="p-1"><i class="fa fa-th-list" data-bs-toggle="tooltip" title="" data-bs-original-title="fa fa-th-list" aria-label="fa fa-th-list"></i></span>{{$student->program->department->dept_name}}</div>
+                                <div class="user-Location"> <span class="p-1"><i class="ion-map " data-bs-toggle="tooltip" title="" data-bs-original-title="ion-map" aria-label="ion-map"></i></span>{{$student->program->program_name ?? null}}</div>
+                                <div class="about-text"><span class="p-1"><i class="fa fa-th-list" data-bs-toggle="tooltip" title="" data-bs-original-title="fa fa-th-list" aria-label="fa fa-th-list"></i></span>{{$student->program->department->dept_name ?? null}}</div>
                             </div>
                             <div class="col-auto profile-btn">
                                 <a href="" class="btn btn-primary">Edit</a>
@@ -177,8 +175,12 @@
                             @endif
                         </ul>
                     </div>
+                    @endif
                     <div class="tab-content profile-tab-cont">
-
+                @isset($student)
+                !@empty($record)
+                    
+                
                         <div class="tab-pane fade show active" id="per_details_tab">
                             <div class="row">
                                 <div class="col-lg-9">
@@ -264,7 +266,9 @@
                                 </div>
                             </div>
                         </div>
-
+@endempty
+                    
+                @endisset
                         <div id="password_tab" class="tab-pane fade">
                             <div class="card">
                                 <div class="card-body">
