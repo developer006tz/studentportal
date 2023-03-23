@@ -144,7 +144,7 @@
                         <div class="row align-items-center">
                             <div class="col-auto profile-image">
                                 <a href="#">
-                                    <img class="rounded-circle" alt="{{ Session::get('name') }}"
+                                    <img class="rounded-circle" style="{{ @style(['width' => '120px', 'height' => '120px']) }}" alt="{{ Session::get('name') }}"
                                     @if(isset($student->photo) && !empty($student->photo))
                                         src="{{ asset('uploads/student/'. $student->photo.'') }}" alt="Student photo">
                                     @else
