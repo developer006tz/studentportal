@@ -132,6 +132,6 @@ class UserManagementController extends Controller
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
         DB::commit();
         Toastr::success('User change successfully :)','Success');
-        return redirect()->intended('home');
+        return redirect()->intended('dashboard');
     }
 }

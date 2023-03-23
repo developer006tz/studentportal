@@ -4,19 +4,19 @@
             <ul>
 
                 
-                <li class="submenu {{set_active(['home','teacher/dashboard','student/dashboard'])}}">
+                <li class="submenu {{set_active(['dashboard','teacher/dashboard','student/dashboard'])}}">
                     <a href="#"><i class="feather-grid"></i>
                         <span> Dashboard</span> 
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>@if (Session::get('user_type') === 'administrator' || Session::get('user_type') === 'Super Admin')
-                        <li><a href="{{ route('home') }}" class="{{set_active(['home'])}}">Admin Dashboard</a></li>
+                        <li><a href="{{ route('dashboard') }}" class="{{set_active(['dashboard'])}}">Admin Dashboard</a></li>
                         @endif
                         @if (Session::get('user_type') === 'teacher')
                         <li><a href="{{ route('teacher/dashboard') }}" class="{{set_active(['teacher/dashboard'])}}">Teacher Dashboard</a></li>
                         @endif
                         @if (Session::get('user_type') === 'student')
-                        <li><a href="{{ route('student/dashboard') }}" class="{{set_active(['student/dashboard'])}}">Student Dashboard</a></li>
+                        <li><a href="{{ route('dashboard') }}" class="{{set_active(['student/dashboard'])}}">Student Dashboard</a></li>
                         @endif
                     </ul>
                 </li>

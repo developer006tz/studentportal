@@ -85,21 +85,7 @@ class LoginController extends Controller
                 Session::put('avatar', $user->avatar);
                 Session::put('department', $user->department);
                 Toastr::success('Login successfully :)','Success');
-                if($user->usertype->user_type_name == 'student'){
-                  return redirect()->intended('student');  
-                }
-                if ($user->usertype->user_type_name == 'teacher') {
-                    return redirect()->intended('teacher/dashboard');
-                }
-                if ($user->usertype->user_type_name == 'staff') {
-                    return redirect()->intended('user/dashboard');
-                }
-                if ($user->usertype->user_type_name == 'department master') {
-                    return redirect()->intended('teacher/dashboard');
-                }
-                if ($user->usertype->user_type_name == 'administrator') {
-                    return redirect()->intended('dashboard');
-                }
+                return redirect()->intended('dashboard');
                 
             } else {
                 Toastr::error('fail, WRONG USERNAME OR PASSWORD :)','Error');

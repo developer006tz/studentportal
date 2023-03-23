@@ -129,7 +129,7 @@
                     <div class="col">
                         <h3 class="page-title">Profile</h3>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
                             <li class="breadcrumb-item active">Profile</li>
                         </ul>
                     </div>
@@ -174,7 +174,7 @@
                             </li>
                             @if(empty($student->admission_id))
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#student_update">student informations</a>
+                                <a class="nav-link" data-bs-toggle="tab" href="#student_update">Complete your profile</a>
                             </li>
                             @endif
                         </ul>

@@ -31,13 +31,14 @@
    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 <body>
+    
     <div class="main-wrapper">
         <div class="header">
             <div class="header-left">
-                <a href="{{ route('home') }}" class="logo">
+                <a href="{{ route('dashboard') }}" class="logo">
                     <img src="{{ URL::to('assets/img/logo/main-logo2.png') }}" alt="Logo">
                 </a>
-                <a href="{{ route('home') }}" class="logo logo-small">
+                <a href="{{ route('dashboard') }}" class="logo logo-small">
                     <img src="{{ URL::to('assets/img/logo/main-logo2.png') }}" alt="Logo" width="30" height="30">
                 </a>
             </div>
@@ -158,10 +159,12 @@
                 <li class="nav-item dropdown has-arrow new-user-menus">
                     <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                         <span class="user-img">
+                            
                             @if(Session::get('user_type') == 'student')
-                            <img class="rounded-circle" src="{{ asset('uploads/student/'. Auth::user()->student->photo.'') }}" width="31" alt="{{ Session::get('name') }}">
+                            <img class="rounded-circle" src="{{ asset('uploads/student/'. (isset(Auth::user()->student) ? Auth::user()->student->photo : 'default.png') ) }}" width="31" alt="{{ Session::get('name') }}">
+
                             @else
-                            <img class="rounded-circle" src="/images/{{ Session::get('avatar') }}" width="31"alt="{{ Session::get('name') }}">
+                            <img class="rounded-circle" src="/images/{{ assets('defaults/default.png') }}" width="31"alt="{{ Session::get('name') }}">
                             @endif
                             <div class="user-text">
                                 <h6>{{ Session::get('name') }}</h6>
@@ -171,7 +174,7 @@
                     </a>
                     <div class="dropdown-menu">
                         
-                        <a class="dropdown-item" href="{{ route('user/profile/page') }}">My Profile</a>
+                        <a class="dropdown-item" href="{{ route(Session::get('user_type') . '/profile/page') }}">My Profile</a>
                         <a class="dropdown-item" href="inbox.html">Inbox</a>
                         <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
                     </div>

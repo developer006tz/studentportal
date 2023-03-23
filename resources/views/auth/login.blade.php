@@ -18,8 +18,8 @@
 <div class="login-right">
     <div class="login-right-wrap">
         <h1>Welcome to SCS</h1>
-        <p class="account-subtitle">Need an account? <a href="{{ route('register') }}">Sign Up</a></p>
-        <h2>Sign in</h2>
+        <p class="account-subtitle">New User? <a href="{{ route('register') }}">Register</a></p>
+        <h2>Log in</h2>
         <form action="{{ route('login') }}" method="POST">
             @csrf
             <div class="form-group">

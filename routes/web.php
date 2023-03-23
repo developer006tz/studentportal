@@ -35,16 +35,16 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::group(['middleware'=>'auth'],function()
-{
-    Route::get('home',function()
-    {
-        return view('home');
-    });
+// Route::group(['middleware'=>'auth'],function()
+// {
+//     Route::get('dashboard',function()
+//     {
+//         return view('home');
+//     });
     
-});
+// });
 
-Auth::routes();
+// Auth::routes();
 
 // ----------------------------login ------------------------------//
 Route::controller(LoginController::class)->group(function () {
@@ -62,10 +62,24 @@ Route::controller(RegisterController::class)->group(function () {
 
 // -------------------------- main dashboard ----------------------//
 Route::controller(HomeController::class)->group(function () {
-    Route::get('/dashboard', 'index')->middleware('auth')->name('home');
-    Route::get('user/profile/page', 'userProfile')->middleware('auth')->name('user/profile/page');
-    Route::get('teacher/dashboard', 'teacherDashboardIndex')->middleware('auth')->name('teacher/dashboard');
-    Route::get('/student', 'studentDashboardIndex')->middleware('auth')->name('student/dashboard');
+    Route::get('dashboard', function () {
+        switch (Auth::user()->usertype->user_type_name) {
+            case 'administrator':
+                return app()->call('App\Http\Controllers\HomeController@index');
+                break;
+            case 'lecture':
+            case 'staff':
+            case 'department_master':
+                return app()->call('App\Http\Controllers\HomeController@teacherDashboardIndex');
+                break;
+            case 'student':
+                return app()->call('App\Http\Controllers\HomeController@studentDashboardIndex');
+                break;
+            default:
+                return redirect()->route('login');
+                break;
+        }
+    })->middleware('auth')->name('dashboard');
 });
 
 // ----------------------------- user controller -------------------------//
@@ -100,6 +114,7 @@ Route::controller(StudentController::class)->group(function () {
 // ------------------------ user student -------------------------------//
 Route::controller(CompleteProfile::class)->group(function () {
     Route::get('student/complete/profile', 'index')->middleware('auth')->name('profile'); // complete profile student
+    Route::get('student/profile/page', 'index')->middleware('auth')->name('student/profile/page'); // general peofile url
     Route::post('student/save', 'store')->middleware('auth')->name('student/save'); // save complete profile student
     Route::get('program/search', 'getPrograms')->middleware('auth')->name('program/search'); // edit complete profile student
     Route::post('student/complete/profile/update', 'completeProfileUpdate')->name('student/complete/profile/update'); // update complete profile student
