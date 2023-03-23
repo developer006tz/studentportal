@@ -253,18 +253,12 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <h5 class="card-title d-flex justify-content-between">
-                                                <span>Skills </span>
+                                                <span>Courses</span>
                                                 <a class="edit-link" href="#"><i class="far fa-edit me-1"></i>Edit</a>
                                             </h5>
                                             <div class="skill-tags">
-                                                <span>Html5</span>
-                                                <span>CSS3</span>
-                                                <span>WordPress</span>
-                                                <span>Javascript</span>
-                                                <span>Android</span>
-                                                <span>iOS</span>
-                                                <span>Angular</span>
-                                                <span>PHP</span>
+                                                <span>{{_('GS')}}</span>
+                                                
                                             </div>
                                         </div>
                                     </div>

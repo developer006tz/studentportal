@@ -157,7 +157,11 @@
                 <li class="nav-item dropdown has-arrow new-user-menus">
                     <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                         <span class="user-img">
+                            @if(Session::get('user_type') == 'student')
+                            <img class="rounded-circle" src="{{ asset('uploads/student/'. Auth::user()->student->photo.'') }}" width="31" alt="{{ Session::get('name') }}">
+                            @else
                             <img class="rounded-circle" src="/images/{{ Session::get('avatar') }}" width="31"alt="{{ Session::get('name') }}">
+                            @endif
                             <div class="user-text">
                                 <h6>{{ Session::get('name') }}</h6>
                                 <p class="text-muted mb-0">{{ Session::get('user_type') }}</p>

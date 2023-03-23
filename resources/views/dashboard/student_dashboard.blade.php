@@ -3,6 +3,9 @@
 @section('content')
     {{-- message --}}
     {!! Toastr::message() !!}
+    @php
+    $student = App\Models\Student::where('user_id', Auth::user()->id)->first();
+    @endphp
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-header">
@@ -23,11 +26,39 @@
                     <div class="col-sm-12">
                         <div class="profile-title">
                             <h6 class="h6">Profile status</h6>
-                            <div class="h6 mx-3">( please complete profile to start send compalints )</div>
+                            @isset($student)
+                                <div class="h6 mx-3">{{_( '( profile completed )')}}
+                                </div>
+                                
+                            @endisset
+                            @empty($student)
+                            <div class="h6 mx-3">{{_( '( please complete profile to start send compalints )')}}
+                                <span @class(['text']) ><a href="{{route('profile')}}"><i class="fa fa-arrow-right" data-bs-toggle="tooltip" title="" data-bs-original-title="fa fa-arrow-right" aria-label="fa fa-arrow-right"></i> complete</a></span>
+                            </div>
+                            @endempty
                             
                         </div>
                         <div class="progress">
-                        <div class="progress-bar bg-danger" role="progressbar" aria-label="Example with label" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                        <div @isset($student)
+                            @class(['progress-bar', 'bg-success'])
+                        @endisset 
+                        @empty($student)
+                            @class(['progress-bar', 'bg-danger'])
+                        @endempty 
+                         role="progressbar" aria-label="Example with label" @isset($student)
+                            @style('width: 100%') aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" 
+                        @endisset
+                        @empty($student)
+                            @style('width: 40%') aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" 
+                        @endempty
+                         >
+                        @isset($student)
+                             {{_( '100% completed' )}} 
+                        @endisset
+                        @empty($student)
+                            {{_( '40% incomplete' )}} 
+                        @endempty
+                    </div>
                         </div>
                     </div>
                 </div>

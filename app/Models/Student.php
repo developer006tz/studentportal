@@ -41,6 +41,10 @@ class Student extends Model
     public function countrie(){
         return $this->belongsTo(Countries::class);
     }
+
+    public function user (){
+        return $this->belongsTo(User::class);
+    }
     
 
 

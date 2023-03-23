@@ -35,6 +35,9 @@ class CompleteProfile extends Controller
         $this->data['programs'] = $programs  = Program::where('dept_id',$user->department)->get();
         $this->data['countries'] = $countries = Countries::all();
         $this->data['student'] = $student = Student::where('user_id',$id)->first();
+
+        // $user  = auth()->user();
+        // dd($user->student->photo);
         
         $country_id = $student->nationality_id ?? null;
         $this->data['country'] = $countries->where('id',$country_id)->first();
