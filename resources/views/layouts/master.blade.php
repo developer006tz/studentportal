@@ -170,15 +170,7 @@
                         </span>
                     </a>
                     <div class="dropdown-menu">
-                        <div class="user-header">
-                            <div class="avatar avatar-sm">
-                                <img src="/images/{{ Session::get('avatar') }}" alt="{{ Session::get('name') }}" class="avatar-img rounded-circle">
-                            </div>
-                            <div class="user-text">
-                                <h6>{{ Session::get('name') }}</h6>
-                                <p class="text-muted mb-0">{{ Session::get('role_name') }}</p>
-                            </div>
-                        </div>
+                        
                         <a class="dropdown-item" href="{{ route('user/profile/page') }}">My Profile</a>
                         <a class="dropdown-item" href="inbox.html">Inbox</a>
                         <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
