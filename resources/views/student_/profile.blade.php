@@ -136,7 +136,6 @@
                 </div>
             </div>
             
-            
 
             <div class="row">
                 <div class="col-md-12">
@@ -144,12 +143,14 @@
                         <div class="row align-items-center">
                             <div class="col-auto profile-image">
                                 <a href="#">
-                                    <img class="rounded-circle" style="{{ @style(['width' => '120px', 'height' => '120px']) }}" alt="{{ Session::get('name') }}"
+                                    <img @class(['rounded-circle']) @style(['width: 120px','height:120px']) alt="{{ Session::get('name') }}"
                                     @if(isset($student->photo) && !empty($student->photo))
-                                        src="{{ asset('uploads/student/'. $student->photo.'') }}" alt="Student photo">
+                                        src="{{ asset('uploads/student/'. $student->photo.'') }}" 
                                     @else
-                                        src="{{ asset('uploads/student/default.png') }}" alt="Student photo">
+                                        src="{{ asset('uploads/student/default.png') }}" 
                                     @endif
+
+                                     />
                                 </a>
                             </div>
                             <div class="col ms-md-n2 profile-user-info">
