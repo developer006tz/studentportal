@@ -140,13 +140,16 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    @if(isset($student) && !empty($student))
                     <div class="profile-header">
                         <div class="row align-items-center">
                             <div class="col-auto profile-image">
                                 <a href="#">
                                     <img class="rounded-circle" alt="{{ Session::get('name') }}"
-                                        src="{{ asset('uploads/student/'.$student->photo) }}" alt="Student photo">
+                                    @if(isset($student->photo) && !empty($student->photo))
+                                        src="{{ asset('uploads/student/'. $student->photo.'') }}" alt="Student photo">
+                                    @else
+                                        src="{{ asset('uploads/student/default.png') }}" alt="Student photo">
+                                    @endif
                                 </a>
                             </div>
                             <div class="col ms-md-n2 profile-user-info">
@@ -175,14 +178,14 @@
                             @endif
                         </ul>
                     </div>
-                    @endif
                     <div class="tab-content profile-tab-cont">
-                @isset($student)
-                !@empty($record)
+                
                     
                 
                         <div class="tab-pane fade show active" id="per_details_tab">
                             <div class="row">
+                                @isset($student)
+                !@empty($record)
                                 <div class="col-lg-9">
                                     <div class="card">
                                         <div class="card-body">
@@ -231,6 +234,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endempty
+                                @endisset
                                 <div class="col-lg-3">
 
                                     <div class="card">
@@ -266,9 +271,9 @@
                                 </div>
                             </div>
                         </div>
-@endempty
+{{-- @endempty
                     
-                @endisset
+                @endisset --}}
                         <div id="password_tab" class="tab-pane fade">
                             <div class="card">
                                 <div class="card-body">
