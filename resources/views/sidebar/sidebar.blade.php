@@ -4,7 +4,7 @@
             <ul>
 
                 
-                <li class="submenu {{set_active(['dashboard','teacher/dashboard','student/dashboard'])}}">
+                <li class="submenu {{set_active(['dashboard','dashboard','dashboard'])}}">
                     <a href="#"><i class="feather-grid"></i>
                         <span> Dashboard</span> 
                         <span class="menu-arrow"></span>
@@ -13,10 +13,10 @@
                         <li><a href="{{ route('dashboard') }}" class="{{set_active(['dashboard'])}}">Admin Dashboard</a></li>
                         @endif
                         @if (Session::get('user_type') === 'teacher')
-                        <li><a href="{{ route('teacher/dashboard') }}" class="{{set_active(['teacher/dashboard'])}}">Teacher Dashboard</a></li>
+                        <li><a href="{{ route('dashboard') }}" class="{{set_active(['dashboard'])}}">Teacher Dashboard</a></li>
                         @endif
                         @if (Session::get('user_type') === 'student')
-                        <li><a href="{{ route('dashboard') }}" class="{{set_active(['student/dashboard'])}}">Student Dashboard</a></li>
+                        <li><a href="{{ route('dashboard') }}" class="{{set_active(['dashboard'])}}">Student Dashboard</a></li>
                         @endif
                     </ul>
                 </li>
