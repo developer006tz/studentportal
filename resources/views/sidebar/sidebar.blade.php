@@ -139,7 +139,7 @@
                 @endif
 
                 @if(Auth::user()->usertype->user_type_name == 'student')
-                <li class="{{set_active(['profile'])}}">
+                <li class="{{set_active(['student/complete/profile'])}}">
                     <a href="{{ route('profile') }}">
                         <i class="fas fa-cog"></i> 
                         <span>Profile</span>
