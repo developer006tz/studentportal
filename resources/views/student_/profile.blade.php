@@ -186,7 +186,6 @@
                         <div class="tab-pane fade show active" id="per_details_tab">
                             <div class="row">
                                 @isset($student)
-                !@empty($record)
                                 <div class="col-lg-9">
                                     <div class="card">
                                         <div class="card-body">
@@ -235,7 +234,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                @endempty
+                                
                                 @endisset
                                 <div class="col-lg-3">
 
