@@ -59,6 +59,19 @@
   bottom: 3px;
 }
 
+#error-msg {
+  color: red;
+}
+#valid-msg {
+  color: #00C900;
+}
+input.error {
+  border: 1px solid #FF7C7C;
+}
+.hide {
+  display: none;
+}
+
 .button_lg {
   position: relative;
   display: block;
@@ -167,14 +180,14 @@
                     <div class="profile-menu">
                         <ul class="nav nav-tabs nav-tabs-solid">
                             <li class="nav-item">
-                                <a class="nav-link active" data-bs-toggle="tab" href="#per_details_tab">About</a>
+                                <a class="nav-link @isset($student) {{_('active')}} @endisset" data-bs-toggle="tab" href="#per_details_tab">About</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="tab" href="#password_tab">Password</a>
                             </li>
                             @if(empty($student->admission_id))
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#student_update">Complete your profile</a>
+                                <a class="nav-link active" data-bs-toggle="tab" href="#student_update">Complete your profile</a>
                             </li>
                             @endif
                         </ul>
@@ -183,7 +196,7 @@
                 
                     
                 
-                        <div class="tab-pane fade show active" id="per_details_tab">
+                        <div class="tab-pane fade @isset($student) {{_(' show active')}} @endisset" id="per_details_tab">
                             <div class="row">
                                 @isset($student)
                                 <div class="col-lg-9">
@@ -320,7 +333,7 @@
                         </div>
 
                         {{-- student info update --}}
-                        <div id="student_update" class="tab-pane fade">
+                        <div id="student_update" class="tab-pane fade @empty($student) {{_('show active')}} @endempty">
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="card comman-shadow">
@@ -475,8 +488,10 @@
                                                     <div class="col-12 col-sm-4">
                                                         <div class="form-group local-forms">
                                                             <label>Phone <span class="login-danger">*</span></label>
-                                                            <input class="form-control @error('phone') is-invalid @enderror" type="text"
-                                                                placeholder="Enter Phone" name="phone" value="{{old('phone')}}" >
+                                                            <input class="form-control @error('phone') is-invalid @enderror" type="tel"
+                                                                placeholder="Enter Phone" name="phone" id="phone" value="{{old('phone')}}" >
+                                                                <span id="valid-msg" class="hide">✓ Valid</span>
+                                                                <span id="error-msg" class="hide"></span>
                                                                 @error('phone')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -553,6 +568,167 @@
         $('.programs-select').select2();
         
     })
+</script>
+<script>
+    
+
+// var input = document.querySelector("#phone"),
+//   errorMsg = document.querySelector("#error-msg"),
+//   validMsg = document.querySelector("#valid-msg");
+
+// // here, the index maps to the error code returned from getValidationError - see readme
+// var errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+// // initialise plugin
+// var iti = window.intlTelInput(input, {
+//     hiddenInput: "full_number",
+//     preferredCountries: ["tz"],
+//     utilsScript: "{{ URL::to('assets/plugins/intlinput/js/utils.js') }}",
+
+
+// });
+
+// var reset = function() {
+//   input.classList.remove("error");
+//   errorMsg.innerHTML = "";
+//   errorMsg.classList.add("hide");
+//   validMsg.classList.add("hide");
+// };
+
+// // on blur: validate
+// input.addEventListener('blur', function() {
+//   reset();
+//   if (input.value.trim()) {
+//     if (iti.isValidNumber()) {
+//       validMsg.classList.remove("hide");
+//     } else {
+//       input.classList.add("error");
+//       var errorCode = iti.getValidationError();
+//       errorMsg.innerHTML = errorMap[errorCode];
+//       errorMsg.classList.remove("hide");
+//     }
+//   }
+// });
+
+// // on keyup / change flag: reset
+// input.addEventListener('change', reset);
+// input.addEventListener('keyup', reset);
+
+// //on country change
+// iti.addEventListener("countrychange", function() {
+//     var countryData = iti.getSelectedCountryData();
+//     console.log(countryData);
+//     var country_code = countryData.dialCode;
+//     var country_name = countryData.name;
+//     var country_iso = countryData.iso2;
+//     $('#country_code').val(country_code);
+//     $('#country_name').val(country_name);
+//     $('#country_iso').val(country_iso);
+// });
+
+$(document).ready(function() {
+  var input = $("#phone"),
+      errorMsg = $("#error-msg"),
+      validMsg = $("#valid-msg"),
+      errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+  var iti = window.intlTelInput(input[0], {
+    hiddenInput: "full_number",
+    preferredCountries: ["tz"],
+    utilsScript: "{{ URL::to('assets/plugins/intlinput/js/utils.js') }}",
+  });
+
+  var reset = function() {
+    input.removeClass("error");
+    errorMsg.html("").addClass("hide");
+    validMsg.addClass("hide");
+  };
+
+  input.on('blur', function() {
+    reset();
+    if (input.val().trim()) {
+      if (iti.isValidNumber()) {
+        validMsg.removeClass("hide");
+      } else {
+        input.addClass("error");
+        var errorCode = iti.getValidationError();
+        errorMsg.html(errorMap[errorCode]).removeClass("hide");
+      }
+    }
+  });
+
+  input.on('change keyup', reset);
+
+  iti.on("countrychange", function() {
+    var countryData = iti.getSelectedCountryData();
+    var country_code = countryData.dialCode;
+    var country_name = countryData.name;
+    var country_iso = countryData.iso2;
+    $('#country_code').val(country_code);
+    $('#country_name').val(country_name);
+    $('#country_iso').val(country_iso);
+  });
+});
+
+
+
+
+</script>
+
+<script>
+  const phoneNumberInput = document.getElementById("phone");
+  phoneNumberInput.addEventListener("keydown", function(event) {
+    const firstDigit = phoneNumberInput.value.charAt(0);
+    const keyCode = event.keyCode || event.which;
+    if (firstDigit >= "0" && firstDigit <= "5") {
+      if (keyCode >= 48 && keyCode <= 57) {
+        event.preventDefault();
+      }
+    }
+  });
+  phoneNumberInput.addEventListener("keypress", function(event) {
+    const keyCode = event.keyCode || event.which;
+    if (keyCode < 48 || keyCode > 57) {
+      event.preventDefault();
+    }
+  });
+  phoneNumberInput.addEventListener("input", function(event) {
+    const phoneNumber = phoneNumberInput.value;
+    if (phoneNumber.length > 9) {
+      phoneNumberInput.value = phoneNumber.slice(0, 9);
+    }
+    if (phoneNumber.charAt(0) >= "0" && phoneNumber.charAt(0) <= "5") {
+      phoneNumberInput.value = phoneNumber.slice(1);
+    }
+  });
+
+  //jquery version
+  /*
+  const phoneNumberInput = $("#phone");
+phoneNumberInput.on("keydown", function(event) {
+  const firstDigit = phoneNumberInput.val().charAt(0);
+  const keyCode = event.keyCode || event.which;
+  if (firstDigit >= "0" && firstDigit <= "5") {
+    if (keyCode >= 48 && keyCode <= 57) {
+      event.preventDefault();
+    }
+  }
+});
+phoneNumberInput.on("keypress", function(event) {
+  const keyCode = event.keyCode || event.which;
+  if (keyCode < 48 || keyCode > 57) {
+    event.preventDefault();
+  }
+});
+phoneNumberInput.on("input", function(event) {
+  const phoneNumber = phoneNumberInput.val();
+  if (phoneNumber.length > 9) {
+    phoneNumberInput.val(phoneNumber.slice(0, 9));
+  }
+  if (phoneNumber.charAt(0) >= "0" && phoneNumber.charAt(0) <= "5") {
+    phoneNumberInput.val(phoneNumber.slice(1));
+  }
+});*/
 </script>
 @endsection
 

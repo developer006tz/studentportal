@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use DB;
 use App\Models\Student;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Validation\Rule;
+
 
 class StudentController extends Controller
 {
@@ -33,22 +36,33 @@ class StudentController extends Controller
     /** student save record */
     public function studentSave(Request $request)
     {
-        
+        // dd($request->all());
         
         $request->validate([
             'fullname'     => 'required|string',
             'admission_id'        => 'required|string',
             'gender' => 'required|string',
-            'dob'        => 'required|string',
+            'dob'        => 'required',
             'nationality'      => 'required|string',
             'maritual_status'         => 'required|string',
-            // 'department'         => 'required|numeric',
             'program_id'       => 'required|numeric',
             'email' => 'required|string|email|max:255|unique:users,email,'.auth()->user()->id,
-            'phone'  => 'required|string|max:255|unique:users',
+            'phone' => 'required',
             'photo'         => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-       
+
+
+            $dateString = $request->dob;
+            $date = Carbon::createFromFormat('d-m-Y', $dateString);
+            $formattedDate = $date->format('Y-m-d');
+
+            // validate phone number
+            $phone = $request->full_number;
+            $full_number = str_replace(" ", "", $phone);
+            if (substr($full_number, 0, 4) !== "+255") {
+                $full_number = "+255" . substr($full_number, 1);
+            }
+
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
             
@@ -60,12 +74,16 @@ class StudentController extends Controller
         } else {
             $filename = 'default.png';
         }
+        // check phone number is unique in users table
+        $check_phone = User::where('phone',$full_number)->first();
+        if($check_phone){
+            Toastr::error('Phone number already exists', 'Error');
+            return false;
+
+        }
         
         DB::beginTransaction();
         try {
-            $dateString = $request->dob;
-            $date = Carbon::createFromFormat('d-m-Y', $dateString);
-            $formattedDate = $date->format('Y-m-d');
             $student = new Student;
             $student->user_id = auth()->user()->id;
             $student->fullname   = $request->fullname;
@@ -75,12 +93,19 @@ class StudentController extends Controller
             $student->maritual_status     = $request->maritual_status;
             $student->program_id        = $request->program_id;
             $student->admission_id        = $request->admission_id;
-            $student->phone      = $request->phone;
+            $student->phone      = $full_number;
             $student->email = $request->email;
             $student->photo = $filename;
             
             $save = $student->save();
             DB::commit();
+            if($save){
+                #update user table phone column to enter a student.phone int users table phone column
+                $user = User::find(auth()->user()->id);
+                $user->phone = $full_number;
+                $save = $user->save();
+            }
+
             return $save;
            
         } catch(\Exception $e) {

@@ -65,7 +65,6 @@ class CompleteProfile extends Controller
      */
     public function store(Request $request)
     {
-        
         $StudentController = new StudentController();
         $save = $StudentController->studentSave($request);
 

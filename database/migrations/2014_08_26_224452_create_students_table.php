@@ -26,7 +26,7 @@ return new class extends Migration
             $table->unsignedBigInteger(column:'program_id')->index();
             $table->foreign('program_id')->references('program_id')->on('programs');
             $table->string('admission_id')->nullable();
-            $table->string('phone')->nullable()->unique();
+            $table->string('phone')->unique();
             $table->string('email')->nullable()->unique();
             $table->enum('status', ['0', '1'])->default('1');
             $table->string('photo')->nullable();
